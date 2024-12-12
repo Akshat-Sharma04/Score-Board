@@ -1,3 +1,5 @@
+{/* Componets of React*/ }
+
 const { useState } = React;
 
 function ScoreKeeperApp() {
@@ -7,14 +9,14 @@ function ScoreKeeperApp() {
   const [message, setMessage] = useState('');
   const [popupType, setPopupType] = useState('');
   const [showPopup, setShowPopup] = useState(false);
-
+// Handels Runs
   const handleRun = (increment, message) => {
-    if (wickets === 10) return; // No more actions after match is over
-    setRuns(runs + increment);
-    setMessage(message);
-    setPopupType('run');
-    setShowPopup(true);
-
+    if (wickets === 10) return; // no  more actions will be excuted after the match is over
+    setRuns(runs + increment); //it will increase the runs
+    setMessage(message);//it will display a contextual message
+    setPopupType('run');//it set the pop up type to "run"
+    setShowPopup(true);//shows the pop up as the buttons of runs,wickets are clicked
+// Increament of Balls
     let newBalls = Math.round((overs - Math.floor(overs)) * 10) + 1;
     let newOvers = Math.floor(overs);
 
@@ -23,11 +25,12 @@ function ScoreKeeperApp() {
       newOvers += 1;
     }
 
-    setOvers(newOvers + newBalls / 10);
+    // setOvers(newOvers + newBalls / 10);it will update the overs
 
-    setTimeout(() => setShowPopup(false), 2000);
+    setTimeout(() => setShowPopup(false), 2000);//it will hide the pop up after 2 seconds
   };
 
+//   Handels Wickets
   const handleWicket = () => {
     if (wickets < 10) {
       setWickets(wickets + 1);
@@ -43,19 +46,22 @@ function ScoreKeeperApp() {
       setTimeout(() => setShowPopup(false), 2000);
     }
   };
-
+ 
+//Handel Reset Button
   const resetScore = () => {
     setRuns(0);
     setWickets(0);
     setOvers(0);
   };
-
+//Formats Over
   const formatOvers = (overs) => {
     const completedOvers = Math.floor(overs);
     const balls = Math.round((overs - completedOvers) * 10);
     return `${completedOvers}.${balls}`;
   };
+{/* Rendering App*/ }
 
+//Scoreboard UI
   return (
     <div className="scorekeeper-container">
       <header className="scoreboard-header">
@@ -78,7 +84,7 @@ function ScoreKeeperApp() {
           </div>
         </div>
       </div>
-
+{/* Control Button */}
       <div className="controls">
         <button onClick={() => handleRun(1, '1 Run')}>Add 1 Run</button>
         <button onClick={() => handleRun(4, '4 Runs')}>Add 4 Runs</button>
@@ -88,9 +94,9 @@ function ScoreKeeperApp() {
       </div>
 
       {showPopup && (
-        <div className={`popup ${popupType}`}>
+        <div className={`popup ${popupType}`}> {/* Conditional Rendering*/ }
           <div className="popup-icon">
-            {popupType === 'run' ? '🏏' : popupType === 'wicket' ? '🎯' : '🎉'}
+            {popupType === 'run' ? '🏏' : popupType === 'wicket' ? '🎯' : '🎉'} {/* Place where pop up icon appears*/ }
           </div>
           {message}
         </div>
